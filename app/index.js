@@ -3,52 +3,89 @@ import path  from  'path';
 import process from  'process';
 import Emitter  from './emitter';
 import * as utility from './utility';
+import * as R from 'ramda';
 
-dotenv.config({ path: path.join(process.cwd(), '.env')});
+/**
+ * Writes on slack chat
+ * 
+ * @param {*} message message 
+ * @param {*} attachments attachments, potentially a list.
+ */
+export function writeOnChat(message, attachments) {
+    dotenv.config({ path: path.join(process.cwd(), '.env')});
+    const apiUrl = utility.string("SLACK_BASE_API");
+    const token = utility.string("SLACK_TOKEN");
+    const channelRef = utility.string("SLACK_CHANNEL_ID");
+    let client = new Emitter(apiUrl, token);
+    client.sendMessage(formattedtext, JSON.stringify(formattedAttachments), channelRef);
+}
 
-const apiUrl = utility.string("SLACK_BASE_API");
-const token = utility.string("SLACK_TOKEN");
-const channelRef = utility.string("SLACK_CHANNEL_ID");
-let client = new Emitter(apiUrl, token);
+/**
+ * Generates a base message ready to be senti via API see writeOnChat
+ * 
+ * @param {*} idRunner id of the runner, if it is undefined this value is generated
+ */
+export function formatBaseMessage(idRunner) {
+    let identifier = idRunner || R.isEmpty(idRunner) ? 
+        idRunner:
+        utility.randomInt(1000000,9999999);
 
-let formattedtext = `Performance Test - Run 0000 (${new Date().toISOString()})`;
-let formattedAttachments = 
-[
-    {
-        'fallback': 'Perfomance report based on Google LightHouse',
-        "author_name": "Lighthouse Score For Slack",
-        "title": "https://www.leroymerlin.it/prodotti/specchi-bagno-CAT35-c",
-        "title_link": "https://www.leroymerlin.it/prodotti/specchi-bagno-CAT35-c",
-        "text": "example text",
-        "fields": [
+    let internalDate=new Date().toISOString();
+    let formattedtext = `Performance Test - Run ${identifier} (${internalDate})`;
+
+    return formattedtext;
+}
+
+/**
+ * Create an attachment structere ready to be sent via API see writeOnChat
+ * 
+ * @param {*} author author of post
+ * @param {*} title title of attachment
+ * @param {*} titleLink link of attachment
+ * @param {*} internalText test in attachment card
+ * @param {*} thumbUrl url of the image
+ * @param {*} performance perfomance value in field
+ * @param {*} accessibility assibility value in field
+ * @param {*} bestPractice best practice value in field
+ * @param {*} seo seo value in field
+ * @param {*} pwa pwa value in field
+ */
+export function formatBaseAttachment(author, title, titleLink, internalText, thumbUrl, performance, accessibility, bestPractice, seo, pwa) {
+    let attachments = [{
+        fallback: 'Perfomance report based on Google LightHouse',
+        author_name: author,
+        title: title,
+        title: titleLink,
+        text: internalText,
+        fields: [
             {
-                "title": "Performance",
-                "value": "42",
-                "short": true
+                title: "Performance",
+                value: performance,
+                short: true
             },
             {
-                "title": "Accessibility",
-                "value": "54",
-                "short": true
+                title: "Accessibility",
+                value: accessibility,
+                short: true
             },
             {
-                "title": "Best Practice",
-                "value": "79",
-                "short": true
+                title: "Best Practice",
+                value: bestPractice,
+                short: true
             },
             {
-                "title": "SEO",
-                "value": "100",
-                "short": true
+                title: "SEO",
+                value: seo,
+                short: true
             },
             {
-                "title": "PWA",
-                "value": "0",
-                "short": true
+                title: "PWA",
+                value: pwa,
+                short: true
             }
         ],
-        "thumb_url": "https://pngimage.net/wp-content/uploads/2018/06/leroy-merlin-png-6.png"
-    }
-];
+        thumb_url : thumbUrl
+    }];
 
-client.sendMessage(formattedtext, JSON.stringify(formattedAttachments), channelRef);
+    return JSON.stringify(attachments);
+}
