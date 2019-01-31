@@ -30,18 +30,7 @@ class Emitter {
      * @param {*} channelRef channel identifer, not name
      */
     sendMessage (formattedMessage, formattedAttachments, channelRef) {
-        if(R.isEmpty(formattedMessage)) {
-            throw new Error('Empty message');
-        }
-
-        let callConf = {
-            method: 'POST',
-            url: this._url
-        };
-
-        callConf = Emitter.addMessageInfoTo(callConf, formattedMessage, formattedAttachments, channelRef);
-        callConf = Emitter.createAPIUrlFromConf(callConf, 'chat.postMessage');
-        doIt(callConf);
+        doIt(Emitter.prepareMessage(arguments));
     }
 
     /**
@@ -124,6 +113,29 @@ class Emitter {
         newConf.url = utility.replace(populatedUrl, 'method', methodName);
 
         return newConf;
+    }
+
+    /**
+     * Prepares the message format to send in a salck channel
+     * 
+     * @param {*} formattedMessage Message to send
+     * @param {*} formattedAttachments Attachments to send
+     * @param {*} channelRef channel identifer, not name
+     */
+    static prepareMessage(formattedMessage, formattedAttachments, channelRef) {
+        if(R.isEmpty(formattedMessage)) {
+            throw new Error('Empty message');
+        }
+
+        let callConf = {
+            method: 'POST',
+            url: this._url
+        };
+
+        callConf = Emitter.addMessageInfoTo(callConf, formattedMessage, formattedAttachments, channelRef);
+        callConf = Emitter.createAPIUrlFromConf(callConf, 'chat.postMessage');
+
+        return callConf;
     }
 }
 
