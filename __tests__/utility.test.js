@@ -27,3 +27,8 @@ test('check base concatall ', () => {
 test('check concatall empty string', () => {
     expect(utility.concatAll('')).toBe('');
 });
+
+test('check random int', () => {
+    let value = utility.randomInt(1,10);
+    expect(value >= 0 && value <= 10).toBe(true);
+});

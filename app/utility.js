@@ -52,3 +52,13 @@ export function replace(phrase, toReplace, withValue) {
  * Concat all string of fields {string}
  */
 export const concatAll = R.unapply(R.reduce(R.concat, ''));
+
+/**
+ * Generates random integer 
+ * 
+ * @param {*} low low value
+ * @param {*} high high value
+ */
+export function randomInt(low, high) {
+    return Math.floor(Math.random() * (high - low) + low)
+}
