@@ -1,8 +1,8 @@
 {
   "name": "lighthouse-score-for-slack",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "LightHouse Score Publisher - Module used to communicate with slack",
-  "main": "./app/index.js",
+  "main": "./dist/app/index.js",
   "scripts": {
     "test": "npm run build && jest --coverage --config jest.conf.json",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./babel.config.js,./package.json,./npm-debug.log --copy-files",
