@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run build && jest --coverage --config jest.conf.json",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./babel.config.js,./package.json,./npm-debug.log --copy-files",
-    "start": "npm run build && node --require 'dotenv/config' --require 'babel-register' dist/app/index.js"
+    "start": "npm run build && node dist/app/index.js"
   },
   "repository": {
     "type": "git",

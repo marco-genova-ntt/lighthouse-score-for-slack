@@ -84,11 +84,10 @@ test('check preparing message', () => {
     let formattedMessage = "message for test";
     let channel = "channel base";
     let formattedAttachments = "{[attachments: 'minivalues']}";
-    let newConf = Emitter.addMessageInfoTo(conf, formattedMessage, formattedAttachments, channel);
-    let lastConf = Emitter.createAPIUrlFromConf(newConf, "test.test");
+    let newConf = client.prepareMessage(formattedMessage,formattedAttachments, channel);
     
-    expect(lastConf.text).toBe(formattedMessage);
-    expect(lastConf.channelId).toBe(channel);
-    expect(lastConf.attachments).toBe(formattedAttachments);
-    expect(lastConf.url).toBe("https://example.com/test.test?token=1234567890&pretty=2&channel=channel base&text=message for test&attachments={[attachments: 'minivalues']}");
+    expect(newConf.text).toBe(formattedMessage);
+    expect(newConf.channelId).toBe(channel);
+    expect(newConf.attachments).toBe(formattedAttachments);
+    expect(newConf.url).toBe("https://example.com/chat.postMessage?token=1234567890&pretty=2&channel=channel base&text=message for test&attachments={[attachments: 'minivalues']}");
 });

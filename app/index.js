@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import dotenv from 'dotenv';
 import path  from  'path';
 import process from  'process';
@@ -16,7 +15,7 @@ let formattedtext = `Performance Test - Run 0000 (${new Date().toISOString()})`;
 let formattedAttachments = 
 [
     {
-        'fallback': 'Required plain-text summary of the attachment',
+        'fallback': 'Perfomance report based on Google LightHouse',
         "author_name": "Lighthouse Score For Slack",
         "title": "https://www.leroymerlin.it/prodotti/specchi-bagno-CAT35-c",
         "title_link": "https://www.leroymerlin.it/prodotti/specchi-bagno-CAT35-c",
