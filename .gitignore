@@ -1,6 +1,3 @@
-# ignore distribution 
-dist/
-
 # Logs
 logs
 *.log
