@@ -1,9 +1,9 @@
 # Slack Bot to publish Google Lighthouse performances KPI
 
-The idea behind this project is to produce a NODEJS module to publish a card on a Slack Chat.
+The idea behind this project is to produce a NODEJS module to publish a card on a Slack Chat. _Esample_:
 
-_Esample_:
-![Example of Slack Attachment](https://github.com/marco-genova-ntt/lighthouse-score-for-slack/raw/master/assets/img/card.png "Example of Slack Attachment")
+
+![Slack Attachment](https://github.com/marco-genova-ntt/lighthouse-score-for-slack/blob/master/assests/img/card.png)
 
 ## Technological Stack
 NodeJs + ES6 (*powered by babel*)
