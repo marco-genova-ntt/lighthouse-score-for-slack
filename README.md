@@ -3,7 +3,7 @@
 The idea behind this project is to produce a NODEJS module to publish a card on a Slack Chat.
 
 _Esample_:
-![alt text](https://github.com/marco-genova-ntt/lighthouse-score-for-slack/raw/master/assets/img/card.png "Example of Slack Attachment")
+![Example of Slack Attachment](https://github.com/marco-genova-ntt/lighthouse-score-for-slack/raw/master/assets/img/card.png "Example of Slack Attachment")
 
 ##Technological Stack
 NodeJs + ES6 (*powered by babel*)
