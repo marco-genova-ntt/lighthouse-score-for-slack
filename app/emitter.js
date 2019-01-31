@@ -22,6 +22,29 @@ class Emitter {
     }
     
     /**
+     * Prepares the message format to send in a salck channel
+     * 
+     * @param {*} formattedMessage Message to send
+     * @param {*} formattedAttachments Attachments to send
+     * @param {*} channelRef channel identifer, not name
+     */
+    prepareMessage(formattedMessage, formattedAttachments, channelRef) {
+        if(R.isEmpty(formattedMessage)) {
+            throw new Error('Empty message');
+        }
+
+        let callConf = {
+            method: 'POST',
+            url: this._url
+        };
+
+        callConf = Emitter.addMessageInfoTo(callConf, formattedMessage, formattedAttachments, channelRef);
+        callConf = Emitter.createAPIUrlFromConf(callConf, 'chat.postMessage');
+
+        return callConf;
+    }
+
+    /**
      * Sends a message to slack channel
      * see documentation for details: @see https://api.slack.com/methods/chat.postMessage
      * 
@@ -30,7 +53,7 @@ class Emitter {
      * @param {*} channelRef channel identifer, not name
      */
     sendMessage (formattedMessage, formattedAttachments, channelRef) {
-        doIt(Emitter.prepareMessage(arguments));
+        doIt(this.prepareMessage(formattedMessage, formattedAttachments, channelRef));
     }
 
     /**
@@ -96,7 +119,7 @@ class Emitter {
      */
     static createAPIUrlFromConf(callConf, methodName) {
         let newConf = R.clone(callConf);
-        let populatedUrl = newConf.url;
+        let populatedUrl = callConf.url;
 
         if (callConf.hasOwnProperty('channelId')) {
             populatedUrl = utility.concatAll(populatedUrl, '&channel=', callConf.channelId);
@@ -115,28 +138,6 @@ class Emitter {
         return newConf;
     }
 
-    /**
-     * Prepares the message format to send in a salck channel
-     * 
-     * @param {*} formattedMessage Message to send
-     * @param {*} formattedAttachments Attachments to send
-     * @param {*} channelRef channel identifer, not name
-     */
-    static prepareMessage(formattedMessage, formattedAttachments, channelRef) {
-        if(R.isEmpty(formattedMessage)) {
-            throw new Error('Empty message');
-        }
-
-        let callConf = {
-            method: 'POST',
-            url: this._url
-        };
-
-        callConf = Emitter.addMessageInfoTo(callConf, formattedMessage, formattedAttachments, channelRef);
-        callConf = Emitter.createAPIUrlFromConf(callConf, 'chat.postMessage');
-
-        return callConf;
-    }
 }
 
 export default Emitter;
