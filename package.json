@@ -1,6 +1,6 @@
 {
   "name": "lighthouse-score-for-slack",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "LightHouse Score Publisher - Module used to communicate with slack",
   "main": "./app/index.js",
   "scripts": {
