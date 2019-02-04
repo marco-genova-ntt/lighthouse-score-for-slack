@@ -50,7 +50,7 @@ export function formatBaseMessage(idRunner) {
  * @param {*} seo seo value in field
  * @param {*} pwa pwa value in field
  */
-export function formatBaseAttachment(author, title, titleLink, internalText, thumbUrl, performance, accessibility, bestPractice, seo, pwa) {
+export function formatBaseAttachment(author, title, titleLink, internalText = '', thumbUrl = '', performance = 'NA', accessibility = 'NA', bestPractice = 'NA', seo = 'NA', pwa = 'NA') {
     let attachments = [{
         fallback: 'Perfomance report based on Google LightHouse',
         author_name: author,
@@ -87,7 +87,7 @@ export function formatBaseAttachment(author, title, titleLink, internalText, thu
         thumb_url : thumbUrl
     }];
 
-    return JSON.stringify(attachments);
+    return attachments;
 }
 
 /**
