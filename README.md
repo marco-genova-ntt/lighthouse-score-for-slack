@@ -1,5 +1,6 @@
 # Slack Bot to publish Google Lighthouse performances KPI
 [![Build Status](https://travis-ci.org/marco-genova-ntt/lighthouse-score-for-slack.svg?branch=master)](https://travis-ci.org/marco-genova-ntt/lighthouse-score-for-slack)
+[![Coverage Status](https://coveralls.io/repos/github/marco-genova-ntt/lighthouse-score-for-slack/badge.svg?branch=add-coveralls)](https://coveralls.io/github/marco-genova-ntt/lighthouse-score-for-slack?branch=add-coveralls)
 
 The idea behind this project is to produce a NODEJS module to publish a card on a Slack Chat. _Example_:
 
