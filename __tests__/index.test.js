@@ -17,7 +17,7 @@ test('check default formatBaseAttachment usage', () => {
         "100",
         "N/A");
     
-    let expectedResult = '[{"fallback":"Perfomance report based on Google LightHouse","author_name":"Lighthouse Score For Slack","title":"https://www.leroymerlin.it/prodotti/specchi-bagno-CAT35-c","text":"bad perfomances","fields":[{"title":"Performance","value":"42","short":true},{"title":"Accessibility","value":"54","short":true},{"title":"Best Practice","value":"79","short":true},{"title":"SEO","value":"100","short":true},{"title":"PWA","value":"N/A","short":true}],"thumb_url":"https://pngimage.net/wp-content/uploads/2018/06/leroy-merlin-png-6.png"}]';
+    let expectedResult = '[{"fallback":"Perfomance report based on Google LightHouse","author_name":"Lighthouse Score For Slack","title":"https://www.leroymerlin.it/prodotti/specchi-bagno-CAT35-c","title_link":"https://www.leroymerlin.it/prodotti/specchi-bagno-CAT35-c","text":"bad perfomances","fields":[{"title":"Performance","value":"42","short":true},{"title":"Accessibility","value":"54","short":true},{"title":"Best Practice","value":"79","short":true},{"title":"SEO","value":"100","short":true},{"title":"PWA","value":"N/A","short":true}],"thumb_url":"https://pngimage.net/wp-content/uploads/2018/06/leroy-merlin-png-6.png"}]';
 
     expect(attachment).toEqual(JSON.parse(expectedResult));
 });
