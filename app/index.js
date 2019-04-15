@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import path  from  'path';
 import process from  'process';
 import Emitter  from './emitter';
+import EmitterWH  from './emitterWH';
 import * as utility from './utility';
 import * as R from 'ramda';
 
@@ -18,6 +19,19 @@ export function writeOnChat(message, attachments) {
     const channelRef = utility.string("SLACK_CHANNEL_ID");
     let client = new Emitter(apiUrl, token);
     client.sendMessage(message, JSON.stringify(attachments), channelRef);
+}
+
+/**
+ * Writes on slack chat via Icoming WebHook
+ * 
+ * @param {*} message message 
+ * @param {*} attachments attachments, potentially a list.
+ */
+export function useWebHook(message, attachments) {
+    dotenv.config({ path: path.join(process.cwd(), '.env')});
+    const apiUrl = utility.string("SLACK_BASE_API");
+    let client = new EmitterWH(apiUrl);
+    client.sendMessage(message, JSON.stringify(attachments));
 }
 
 /**
@@ -55,7 +69,7 @@ export function formatBaseAttachment(author, title, titleLink, internalText = ''
         fallback: 'Perfomance report based on Google LightHouse',
         author_name: author,
         title: title,
-        title: titleLink,
+        title_link: titleLink,
         text: internalText,
         fields: [
             {
@@ -113,7 +127,15 @@ export const hasScore = R.has('score');
 export function dispatchMessage(idRunner, author, title, titleLink, internalText = '', thumbUrl = '', performance= 'NA', accessibility= 'NA', bestPractice= 'NA', seo= 'NA', pwa= 'NA') {
     const message = formatBaseMessage(idRunner);
     const attachments = formatBaseAttachment(author, title, titleLink, internalText, thumbUrl, performance, accessibility, bestPractice, seo, pwa);
-    writeOnChat(message, attachments);
+    const mode = utility.string("SLACK_MODE", 'WEB');
+    console.info('SLACK MODE: ', mode);
+
+    if (mode === 'WEB') {
+        useWebHook(message, attachments);
+    } else {
+        writeOnChat(message, attachments);
+    }
+
 }
 
 /**

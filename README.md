@@ -16,7 +16,15 @@ A valid example of usage is here: https://github.com/marco-genova-ntt/lighthouse
 
 The project is ES6-based.
 
-## Integration with Slack
+##Integration with Slack (0.2+)
+The application use two methods:
+
+1. Incoming Webhooks (default)
+2. Bots configuration
+
+see environment variable: _SLACK_MODE_
+
+## Integration with Slack (below 0.2)
 In order to enable the integration with slack channel, a Slack Apps was created to create. Actually it's not published.
 The name of the slack app is "LightHouse Score Publisher".
 
@@ -35,8 +43,14 @@ SLACK_TOKEN=xoxb-.....,
 #Slack channel identifier, use Web API simulator to extract this value (https://api.slack.com/methods/conversations.list)
 SLACK_CHANNEL_ID=C6H41XTRU
 
-#Base api url, use this for the actual version of api
+#SLACK MODE TYPE (WEB (web book) or BOT)
+SLACK_MODE=WEB
+
+#Base api url, use this for the actual version of api (SLACK_MODE=BOT)
 SLACK_BASE_API=https://slack.com/api/{method}?token={token}&pretty=1
+
+#URl Incoming WEB HOOK (SLACK_MODE=WEB)
+SLACK_WEB_HOOK=https://hooks.slack.com/services/THXcd3CRG/BJ03reFY/Ia72bin7j6wer23VSvSXLvTQw
 ```
 
 ## References
