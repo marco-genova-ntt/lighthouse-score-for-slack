@@ -29,7 +29,7 @@ export function writeOnChat(message, attachments) {
  */
 export function useWebHook(message, attachments) {
     dotenv.config({ path: path.join(process.cwd(), '.env')});
-    const apiUrl = utility.string("SLACK_BASE_API");
+    const apiUrl = utility.string("SLACK_WEB_HOOK");
     let client = new EmitterWH(apiUrl);
     client.sendMessage(message, JSON.stringify(attachments));
 }

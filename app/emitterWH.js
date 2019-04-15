@@ -32,7 +32,7 @@ class EmitterWH {
             url: this._url,
             data: {
                 'text' : formattedMessage,
-                'attachments': formattedAttachments
+                'attachments': JSON.parse(formattedAttachments)
             }
         };
 
